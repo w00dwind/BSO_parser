@@ -27,12 +27,14 @@ def gs_sync(secret_json=CONFIG['secret_json'],
     gc = gspread.service_account(filename=secret_json)
     table = gc.open(table_name)
     worksheet = table.worksheet(sheet_name)
+    # Check matching columns in config and google sheet
+    if worksheet.row_values(1) != CONFIG['columns']:
+        worksheet.update([CONFIG['columns']])
+        print('>>> gs columns updated from config!')
+
     if mode == 'get':
         sheet_values = worksheet.get_all_values()
         sync_df = pd.DataFrame(sheet_values[1:], columns=sheet_values[0])
-        sync_df['n_rehersals'] = sync_df['n_rehersals'].astype(int)
-        boolean_columns = ['principal', 'co-principal', 'second', 'contra', 'russia_tour', 'international_tour']
-        sync_df[boolean_columns] = sync_df[boolean_columns] == 'TRUE'
         if save_path is not None:
             sync_df.to_csv(save_path)
         return sync_df
@@ -64,7 +66,8 @@ def get_concert_urls(homepage: str, start_year=CONFIG['start_year'], end_year=CO
             idx.append(raw_parsed_urls.index(u))
 
     first_idx, last_idx = idx[0], idx[-1]
-    concert_urls = [homepage + c for c in tqdm(raw_parsed_urls[first_idx:last_idx], desc='making concert urls list', colour='green')]
+    concert_urls = [homepage + c for c in
+                    tqdm(raw_parsed_urls[first_idx:last_idx], desc='making concert urls list', colour='green')]
 
     return concert_urls
 
@@ -90,11 +93,10 @@ def convert_date(date: List[str], ):
                   'ноябрь',
                   'декабрь',
                   ]
-    numered_month = {m: n for n, m in enumerate(month_list, start=1)}
+    numered_month: dict = {m: n for n, m in enumerate(month_list, start=1)}
     lem = Mystem()
     lemmatized_month = lem.lemmatize(date[1])[0]
 
     date[1] = str(numered_month[lemmatized_month])
 
     return datetime.strptime(' '.join(date), '%d %m %Y %H.%M')
-
