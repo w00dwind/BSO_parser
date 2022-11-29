@@ -103,6 +103,7 @@ def get_concert_dataframe(
     return concerts_df
 
 
+
 if __name__ == "__main__":
     CONFIG = conf.CONFIG
     parser = argparse.ArgumentParser()
