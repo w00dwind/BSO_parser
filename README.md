@@ -4,3 +4,4 @@
 * Google sheet is database to GlideApps service
 * in GlideApps web application we can convient count attedence of musicians, and also see important information about concerts. 
 (app can be installed like web link on the homescreen iphone/android)
+ 
