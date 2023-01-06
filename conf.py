@@ -29,8 +29,8 @@ CONFIG = {
 
     # gs_sync config
     'secret_json': 'secrets/parser-369321-949b6976533c.json',
-    'table_name': 'parser_experiment',
-    'sheet_name': 'upload',
+    'table_name': 'BSO_22_23',
+    'sheet_name': 'concerts_sheet',
     'gs_df_file': 'sync.csv'
 
 }

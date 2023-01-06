@@ -39,7 +39,7 @@ def gs_sync(secret_json=CONFIG['secret_json'],
             sync_df.to_csv(save_path)
         return sync_df
     else:
-        worksheet.append_rows(row_to_append)
+        worksheet.append_rows(row_to_append, table_range='A1')
         print(f'{len(row_to_append)} rows appended !')
 
 
