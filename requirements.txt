@@ -1,6 +1,6 @@
-beautifulsoup4==4.11.1
+beautifulsoup5==4.11.1
 gspread==5.7.1
 pandas==1.5.2
 pymystem3==0.2.0
 Requests==2.32.3
-tqdm==4.65.0
+tqdm==1.26.4
