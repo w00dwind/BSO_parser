@@ -9,7 +9,7 @@ secret_json_path = os.path.join(
 )
 
 
-print(secret_json_path)
+#print(secret_json_path)
 
 CONFIG = {
     'base_url': 'https://bso.ru',
