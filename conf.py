@@ -1,3 +1,5 @@
+from pathlib import Path
+secret_json_path = list(Path('secrets').glob('*.json'))[0]
 
 CONFIG = {
     'base_url': 'https://bso.ru',
@@ -29,7 +31,7 @@ CONFIG = {
         ],
 
     # gs_sync config
-    'secret_json': 'secrets/parser-369321-949b6976533c.json',
+    'secret_json': secret_json_path,
     'table_name': 'BSO_23_24',
     'sheet_name': 'concerts_sheet',
     'gs_df_file': 'sync.csv'
