@@ -27,6 +27,10 @@ def gs_sync(secret_json=CONFIG['secret_json'],
     gc = gspread.service_account(filename=secret_json)
     table = gc.open(table_name)
     worksheet = table.worksheet(sheet_name)
+
+    # find first empty row in 'title' column
+    # first_empty_row_index = list(worksheet.col_values(1)).index('')
+
     # Check matching columns in config and google sheet
     if worksheet.row_values(1) != CONFIG['columns']:
         worksheet.update([CONFIG['columns']])
@@ -43,13 +47,13 @@ def gs_sync(secret_json=CONFIG['secret_json'],
         print(f'{len(row_to_append)} rows appended !')
 
 
-def get_concert_urls(homepage: str, start_year=CONFIG['start_year'], end_year=CONFIG['end_year']):
+def get_concert_urls(homepage: str, hdrs=CONFIG['headers'], start_year=CONFIG['start_year'], end_year=CONFIG['end_year']):
     """
     homepage: homepage url in format https://site.com
     start_year: year of start season
     end_year: year of end season
     """
-    page = requests.get(homepage)
+    page = requests.get(homepage, headers=hdrs)
     soup = BeautifulSoup(page.text, 'html.parser')
 
     raw_parsed_urls = []
@@ -98,5 +102,8 @@ def convert_date(date: List[str], ):
     lemmatized_month = lem.lemmatize(date[1])[0]
 
     date[1] = str(numered_month[lemmatized_month])
+    if date[-1] == '.':
+        return datetime.strptime(' '.join(date[:3]), '%d %m %Y')
+    else:
+        return datetime.strptime(' '.join(date), '%d %m %Y %H.%M')
 
-    return datetime.strptime(' '.join(date), '%d %m %Y %H.%M')

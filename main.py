@@ -11,6 +11,7 @@ CONFIG = conf.CONFIG
 
 def get_concert_dataframe(
         base_url: str = CONFIG['base_url'],
+        hdrs=CONFIG['headers'],
         home_class: str = CONFIG['home_concert_class'],
         tour_class: str = CONFIG['tour_concert_class'],
         timeout: float = 0.5,
@@ -39,7 +40,7 @@ def get_concert_dataframe(
 
     for url in tqdm(concert_urls, desc='parsing data', colour='green'):
         concert = {}
-        concert_page = requests.get(url)
+        concert_page = requests.get(url, headers=hdrs)
         concert_soup = BeautifulSoup(concert_page.text, 'html.parser')
 
         concert['title'] = concert_soup.title.text.translate(chars_to_replace)
