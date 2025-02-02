@@ -1,5 +1,6 @@
 from pathlib import Path
-secret_json_path = list(Path('secrets').glob('*.json'))[0]
+secret_json_path = list(Path('secrets').glob('*.json'))[0].resolve()
+print(secret_json_path)
 
 CONFIG = {
     'base_url': 'https://bso.ru',
