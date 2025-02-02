@@ -1,5 +1,14 @@
 from pathlib import Path
-secret_json_path = list(Path('secrets').glob('*.json'))[0].resolve()
+import os
+# secret_json_path = path.abspath(path.join(__file__ , '*/*.json'))
+secret_json_name = 'parser-369321-949b6976533c.json'
+secret_json_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    'secrets',
+    secret_json_name
+)
+
+
 print(secret_json_path)
 
 CONFIG = {
