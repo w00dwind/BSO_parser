@@ -56,15 +56,18 @@ def get_concert_dataframe(
         day = concert_soup.find('a', class_='active').text.split()[0]
         # time
         hour = time_place.split()[-1]
-        # fill dictionary
-        concert['dt'] = str(convert_date([day, month, year, hour]))
+
         # Is on tour
         russia_tour, international_tour = False, False
         if 'tour' in url:
             if 'Россия' in concert['place'].split():
                 russia_tour = True
+                year = int(year) + 1 # bugfix on the web page - years in russia tours always shows as less at one than it should be
+                year = str(year) # cast to str, cause function "convert_date" accept list of strings.
             else:
                 international_tour = True
+        # fill dictionary
+        concert['dt'] = str(convert_date([day, month, year, hour]))
 
         # Parse concert program
         class_mode = tour_class if (russia_tour or international_tour) else home_class

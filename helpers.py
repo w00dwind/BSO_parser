@@ -97,11 +97,11 @@ def convert_date(date: List[str], ):
                   'ноябрь',
                   'декабрь',
                   ]
-    numered_month: dict = {m: n for n, m in enumerate(month_list, start=1)}
+    numbered_month: dict = {m: n for n, m in enumerate(month_list, start=1)}
     lem = Mystem()
     lemmatized_month = lem.lemmatize(date[1])[0]
 
-    date[1] = str(numered_month[lemmatized_month])
+    date[1] = str(numbered_month[lemmatized_month])
     if date[-1] == '.':
         return datetime.strptime(' '.join(date[:3]), '%d %m %Y')
     else:
