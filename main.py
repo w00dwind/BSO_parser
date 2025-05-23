@@ -64,6 +64,7 @@ def get_concert_dataframe(
                 russia_tour = True
                 year = int(year) + 1 # bugfix on the web page - years in russia tours always shows as less at one than it should be
                 year = str(year) # cast to str, cause function "convert_date" accept list of strings.
+                # print(year)
             else:
                 international_tour = True
         # fill dictionary

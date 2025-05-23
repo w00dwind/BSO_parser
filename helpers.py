@@ -66,7 +66,7 @@ def get_concert_urls(homepage: str, hdrs=CONFIG['headers'], start_year=CONFIG['s
             year, month = int(u.split('/')[-4]), int(u.split('/')[-3])
         except:
             year, month = 0, 0
-        if (year == start_year and month > 7) or (year == end_year and month < 7):
+        if (year == start_year and month > 7) or (year == end_year and month < 8):
             idx.append(raw_parsed_urls.index(u))
 
     first_idx, last_idx = idx[0], idx[-1]
